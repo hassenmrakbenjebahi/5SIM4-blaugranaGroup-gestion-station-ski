@@ -49,7 +49,7 @@ pipeline {
                             [
                                 artifactId: 'gestion-station-ski',
                                 classifier: '',
-                                file: 'target/gestion-station-ski-1.0.jar', // Relative path
+                                file: '/var/lib/jenkins/workspace/5SIM4-blaugranaGroup-gestion-station-ski/target/gestion-station-ski-1.0.jar', // Relative path
                                 type: 'jar'
                             ]
                         ]
