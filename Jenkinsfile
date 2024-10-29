@@ -11,14 +11,14 @@ pipeline {
 
         stage("Compile"){
             steps{
-                sh "mvn clean compile"
+                sh "mvn clean install"
             }
         }
-        stage("Junit/Mockito"){
-            steps{
-                sh "mvn test"
-            }
-        }
+        //stage("Junit/Mockito"){
+           // steps{
+               // sh "mvn test"
+           // }
+       // }
     }
 
     post {
