@@ -1,6 +1,9 @@
 pipeline {
     agent any  // Utiliser n'importe quel agent disponible
-
+    environment {
+        SONARQUBE_SERVER = 'sq'  // Nom du serveur configuré dans Jenkins
+        SONARQUBE_LOGIN = credentials('sonar-token')  // Nom des credentials configurés
+    }
     stages {
         stage('Checkout') {  // Première étape : récupération du code
             steps {
@@ -15,9 +18,18 @@ pipeline {
             }
         }
         stage("Junit/Mockito"){
-            steps{
+            steps {
                 sh "mvn test"
             }
+        }
+
+
+        stage('SonarQube Analysis') {  // Analyse de qualité de code avec SonarQube
+             steps {
+               withSonarQubeEnv(SONARQUBE_SERVER) {  // Utilisation de l'environnement SonarQube
+                 sh "mvn sonar:sonar -Dsonar.login=${SONARQUBE_LOGIN}"  // Lancer l'analyse avec Maven
+               }
+             }
         }
     }
 
