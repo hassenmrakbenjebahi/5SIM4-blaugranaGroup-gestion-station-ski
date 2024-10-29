@@ -31,6 +31,35 @@ pipeline {
                }
              }
         }
+
+        stage('NEXUS') {
+            steps {
+                script {
+                    echo "Deploying to Nexus..."
+                    nexusArtifactUploader(
+                        nexusVersion: 'nexus3',
+                        protocol: 'http',
+                        nexusUrl: '192.168.50.4:8081',
+                        groupId: 'tn.esprit.spring',
+                        artifactId: 'gestion-station-ski',
+                        version: '1.0',
+                        repository: 'maven-releases',
+                        credentialsId: 'ski-deploy',
+                        artifacts: [
+                            [
+                                artifactId: 'gestion-station-ski',
+                                classifier: '',
+                                file: 'target/gestion-station-ski-1.0.jar', // Relative path
+                                type: 'jar'
+                            ]
+                        ]
+                    )
+                    echo "Deployment to Nexus completed!"
+                }
+            }
+        }
+
+
     }
 
     post {
