@@ -1,4 +1,5 @@
-FROM openjdk:8-jdk-alpine
+FROM openjdk:11-jdk-slim
 EXPOSE 8081
-ADD target/gestion-station-ski-1.0.jar gestion-station-ski-1.0.jar
-ENTRYPOINT ["java","-jar","/gestion-station-ski-1.0.jar"]
+ARG JAR_VERSION
+ADD target/tpAchatProject-${JAR_VERSION}.jar tpAchatProject.jar
+ENTRYPOINT ["java", "-jar", "/tpAchatProject.jar"]
