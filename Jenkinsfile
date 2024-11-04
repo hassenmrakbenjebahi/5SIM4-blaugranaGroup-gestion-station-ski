@@ -65,10 +65,21 @@ pipeline {
             steps {
                 script {
                     // Créer l'image Docker avec le fichier Dockerfile
-                    sh "docker build -t ${USER}/${IMAGE_NAME}:1.0.0 ."
+                    sh "docker build -t ${USER}/${IMAGE_NAME}:${env.BUILD_NUMBER} ."
                 }
             }
         }
+
+        stage('Docker Push') {  // Déplacer en dehors de 'NEXUS'
+              steps {
+                  script {
+                      withDockerRegistry(credentialsId: 'dockerhub') {
+                        sh "docker push ${USER}/${IMAGE_NAME}:${env.BUILD_NUMBER}"
+
+                      }
+                  }
+              }
+          }
     }
 
     post {
