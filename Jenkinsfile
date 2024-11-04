@@ -3,6 +3,7 @@ pipeline {
     environment {
         SONARQUBE_SERVER = 'sq'  // Nom du serveur configuré dans Jenkins
         SONARQUBE_LOGIN = credentials('sonar-token')  // Nom des credentials configurés
+        IMAGE_NAME = hassen98/gestion-station-ski
     }
     stages {
         stage('Checkout') {  // Première étape : récupération du code
@@ -57,6 +58,15 @@ pipeline {
                     )
                     echo "Deployment to Nexus completed!"
                 }
+            }
+
+            stage('Build Docker Image') {
+                 steps {
+                       script {
+                                // Créer l'image Docker avec le fichier Dockerfile
+                                sh "docker build -t ${IMAGE_NAME}:1.0.0 ."
+                             }
+                       }
             }
         }
 
