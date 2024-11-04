@@ -44,7 +44,7 @@ pipeline {
                         nexusUrl: '192.168.50.4:8081',
                         groupId: 'tn.esprit.spring',
                         artifactId: 'gestion-station-ski',
-                        version: '1.0',
+                        version: '1.0.0',
                         repository: 'maven-releases',
                         credentialsId: 'ski-deploy',
                         artifacts: [
