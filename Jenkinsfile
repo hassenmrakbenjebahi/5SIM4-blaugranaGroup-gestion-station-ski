@@ -65,7 +65,7 @@ pipeline {
             steps {
                 script {
                     // Créer l'image Docker avec le fichier Dockerfile
-                    sh "docker build -t ${USER}/${IMAGE_NAME}:${env.BUILD_NUMBER} ."
+                    sh "docker build -t ${USER}/${IMAGE_NAME}:1.0.${env.BUILD_NUMBER} ."
                 }
             }
         }
@@ -74,12 +74,19 @@ pipeline {
               steps {
                   script {
                       withDockerRegistry(credentialsId: 'dockerhub') {
-                        sh "docker push ${USER}/${IMAGE_NAME}:${env.BUILD_NUMBER}"
-
+                        sh "docker push ${USER}/${IMAGE_NAME}:1.0.${env.BUILD_NUMBER}"
                       }
                   }
               }
           }
+        stage('Docker Compose') {  // Nouveau stage pour Docker Compose
+              steps {
+                   script {
+                       // Lancer les services définis dans docker-compose.yml
+                       sh 'docker-compose up -d'  // Démarre les services en arrière-plan
+                   }
+              }
+        }
     }
 
     post {
