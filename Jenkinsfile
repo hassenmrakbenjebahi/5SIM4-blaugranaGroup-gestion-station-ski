@@ -5,8 +5,6 @@ pipeline {
         SONARQUBE_LOGIN = credentials('sonar-token')  // Nom des credentials configurés
         IMAGE_NAME = 'gestion-station-ski'  // Ajout des guillemets simples
         USER = 'hassen98'  // Ajout des guillemets simples
-        EMAIL_RECIPIENTS = 'hassen.mrakbenjebahi@esprit.tn'
-
     }
     stages {
         stage('Checkout') {  // Première étape : récupération du code
@@ -92,24 +90,11 @@ pipeline {
     }
 
     post {
-              success {
-                  echo 'Le pipeline a réussi.'
-                  emailext(
-                      subject: "Pipeline Success: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                      body: "The pipeline has succeeded.\n\nDetails:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: SUCCESS",
-                      to: "${EMAIL_RECIPIENTS}"
-                  )
-              }
-              failure {
-                  echo 'Le pipeline a échoué.'
-                  emailext(
-                      subject: "Pipeline Failed: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                      body: "The pipeline has failed.\n\nDetails:\nJob: ${env.JOB_NAME}\nBuild: ${env.BUILD_NUMBER}\nStatus: FAILURE\nPlease check the logs for more details.",
-                      to: "${EMAIL_RECIPIENTS}"
-                  )
-              }
-              always {
-                  echo 'Le pipeline est terminé.'
-              }
+        success {
+            echo 'Le pipeline a réussi.'
+        }
+        failure {
+            echo 'Le pipeline a échoué.'
+        }
     }
 }
