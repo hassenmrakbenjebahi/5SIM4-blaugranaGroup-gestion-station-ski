@@ -70,6 +70,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
     @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 seconds */
     public void showMonthlyRecurringRevenue() {
@@ -90,11 +91,27 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
 =======
    // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
     @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+=======
+    // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
+    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 seconds */
+>>>>>>> 8fe0e3bcc946fbe7eba647dafdbc2fb65cbad772
     public void showMonthlyRecurringRevenue() {
-        Float revenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY)
-                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL)/6
-                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.ANNUAL)/12;
-        log.info("Monthly Revenue = " + revenue);
+        Float monthlyRevenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY);
+        Float semestrialRevenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL);
+        Float annualRevenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.ANNUAL);
+
+        // Use 0 if any of the values are null
+        monthlyRevenue = (monthlyRevenue != null) ? monthlyRevenue : 0f;
+        semestrialRevenue = (semestrialRevenue != null) ? semestrialRevenue : 0f;
+        annualRevenue = (annualRevenue != null) ? annualRevenue : 0f;
+
+        Float totalRevenue = monthlyRevenue + (semestrialRevenue / 6) + (annualRevenue / 12);
+        log.info("Monthly Revenue = " + totalRevenue);
     }
+<<<<<<< HEAD
 >>>>>>> f219520990b1bdd59d54d3419e530727ce1ca382
+=======
+
+
+>>>>>>> 8fe0e3bcc946fbe7eba647dafdbc2fb65cbad772
 }
