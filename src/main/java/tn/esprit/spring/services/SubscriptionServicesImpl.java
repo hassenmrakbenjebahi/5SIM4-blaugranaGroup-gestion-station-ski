@@ -69,6 +69,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
         }
     }
 
+<<<<<<< HEAD
     // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
     @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 seconds */
     public void showMonthlyRecurringRevenue() {
@@ -86,4 +87,14 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
 
+=======
+   // @Scheduled(cron = "* 0 9 1 * *") /* Cron expression to run a job every month at 9am */
+    @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
+    public void showMonthlyRecurringRevenue() {
+        Float revenue = subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.MONTHLY)
+                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.SEMESTRIEL)/6
+                + subscriptionRepository.recurringRevenueByTypeSubEquals(TypeSubscription.ANNUAL)/12;
+        log.info("Monthly Revenue = " + revenue);
+    }
+>>>>>>> f219520990b1bdd59d54d3419e530727ce1ca382
 }

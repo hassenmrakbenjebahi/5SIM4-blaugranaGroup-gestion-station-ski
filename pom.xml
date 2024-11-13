@@ -49,6 +49,7 @@
 			<version>1.6.12</version>
 		</dependency>
 		<dependency>
+<<<<<<< HEAD
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
@@ -67,11 +68,14 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+=======
+>>>>>>> f219520990b1bdd59d54d3419e530727ce1ca382
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+<<<<<<< HEAD
 	<distributionManagement>
 		<repository>
 			<id>deploymentRepo</id>
@@ -79,6 +83,9 @@
 			<url>http://192.168.29.128:8081//repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
+=======
+
+>>>>>>> f219520990b1bdd59d54d3419e530727ce1ca382
 	<build>
 		<plugins>
 			<plugin>
