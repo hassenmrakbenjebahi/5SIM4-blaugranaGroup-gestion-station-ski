@@ -2,27 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.9</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    
     <groupId>tn.esprit.spring</groupId>
     <artifactId>gestion-station-ski</artifactId>
-    <version>1.0.0/version>
+    <version>1.0.0</version> <!-- Ensure this is properly closed -->
     <name>gestion-station-ski</name>
     <description>Demo project for Spring Boot</description>
-    
     <properties>
         <java.version>1.8</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <!-- You can also set the version of the JAR if you want -->
-        <project.build.finalName>gestion-station-ski-1.0.0</project.build.finalName>  <!-- Ensure the final name is correct -->
     </properties>
-    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -59,36 +53,27 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
             <name>Nexus Repository</name>
-            <url>http://192.168.50.4:8081/repository/maven-releases/</url>
+            <url>http://192.168.50.4:8081//repository/maven-releases/</url>
         </repository>
     </distributionManagement>
-    
+
     <build>
         <plugins>
-            <!-- Spring Boot Maven Plugin to build executable JAR -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <finalName>gestion-station-ski-${project.version}</finalName>  <!-- This sets the name of the generated JAR -->
-                </configuration>
-            </plugin>
-            <!-- Optional: Add a Jar Plugin for creating non-executable JARs (for other purposes) -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>${maven-jar-plugin.version}</version>
-                <configuration>
-                    <archive>
-                        <manifestEntries>
-                            <Main-Class>tn.esprit.spring.GestionStationSkiApplication</Main-Class> <!-- Main class entry for JAR if needed -->
-                        </manifestEntries>
-                    </archive>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
