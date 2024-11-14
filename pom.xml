@@ -12,7 +12,7 @@
     
     <groupId>tn.esprit.spring</groupId>
     <artifactId>gestion-station-ski</artifactId>
-    <version>1.0</version>
+    <version>1.0.0/version>
     <name>gestion-station-ski</name>
     <description>Demo project for Spring Boot</description>
     
@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
         <!-- You can also set the version of the JAR if you want -->
-        <project.build.finalName>gestion-station-ski-${project.version}</project.build.finalName>  <!-- Ensure the final name is correct -->
+        <project.build.finalName>gestion-station-ski-1.0.0</project.build.finalName>  <!-- Ensure the final name is correct -->
     </properties>
     
     <dependencies>
