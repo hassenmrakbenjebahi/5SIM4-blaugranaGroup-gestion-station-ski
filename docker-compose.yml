@@ -14,7 +14,7 @@ services:
   app-stationski:
     depends_on:
       - mysqldb
-    image: achrefessid/gestion-station-ski:1.0
+    image: ashgodk/alpine:1.0.0
     #build : ./
     restart: on-failure
     ports:
