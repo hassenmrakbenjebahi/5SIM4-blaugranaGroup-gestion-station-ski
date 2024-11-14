@@ -5,6 +5,7 @@ pipeline {
         SONARQUBE_LOGIN = credentials('sonar-token')  // Nom des credentials configurés
         IMAGE_NAME = 'gestion-station-ski'  // Ajout des guillemets simples
         USER = 'hassen98'  // Ajout des guillemets simples
+        EMAIL_RECIPIENTS = 'hassen.mrakbenjebahi@esprit.tn'
     }
     stages {
         stage('Checkout') {  // Première étape : récupération du code
