@@ -13,10 +13,13 @@
     <version>1.0</version>
     <name>gestion-station-ski</name>
     <description>Demo project for Spring Boot</description>
+
     <properties>
-        <java.version>1.8</java.version>
+        <!-- Set Java version to 17 -->
+        <java.version>17</java.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -71,6 +74,7 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
     <distributionManagement>
         <repository>
             <id>deploymentRepo</id>
@@ -78,6 +82,7 @@
             <url>http://192.168.29.128:8081/repository/maven-releases/</url>
         </repository>
     </distributionManagement>
+
     <build>
         <plugins>
             <!-- Spring Boot Maven Plugin -->
@@ -94,7 +99,18 @@
                 </configuration>
             </plugin>
 
-            <!-- SonarQube Maven Plugin compatible with Java 8 -->
+            <!-- Maven Compiler Plugin to set Java version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                </configuration>
+            </plugin>
+
+            <!-- SonarQube Maven Plugin compatible with Java 17 -->
             <plugin>
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
