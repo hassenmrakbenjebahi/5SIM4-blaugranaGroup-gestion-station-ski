@@ -1,0 +1,113 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Git') {
+    steps {
+        echo 'Pulling...';
+        git branch: 'omarbranche', 
+            url: 'https://github.com/hassenmrakbenjebahi/5SIM4-blaugranaGroup-gestion-station-ski.git'; 
+    }
+}
+        stage('Maven Clean') {
+            steps {
+                echo 'Nettoyage du projet..';
+                sh 'mvn clean';
+            }
+        }
+        stage('Maven Compile') {
+            steps {
+                echo 'Construction du projet..';
+                sh 'mvn compile';
+            }
+        }
+       
+       
+        
+         stage('Mockito') {
+            steps {
+                echo 'Unit tests..';
+                sh 'mvn test';
+            }
+        }
+         stage('JaCoCo Report') {
+            steps {
+                echo 'Generating JaCoCo coverage report...'
+                script {
+                   
+                    sh 'mvn jacoco:report' 
+                   
+                }
+            }
+            post {
+                success {
+                   
+                    step([$class: 'JacocoPublisher', execPattern: '**/target/jacoco.exec', 
+                          classPattern: '**/target/classes', 
+                          sourcePattern: '**/src/main/java', 
+                          exclusionPattern: '*/src/test/*',
+                          reportPattern: '*/target/site/jacoco/jacoco.html'])
+                }
+            }
+        }
+        stage('SonarQube') {
+            steps {
+                echo 'analyse de la qualité de code';
+                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=SonarSonar1*';
+            }
+        }
+        stage('Packaging') {
+            steps {
+                echo 'packaging..';
+                sh 'mvn package';
+            }
+        }
+        stage('Deploying') {
+            steps {
+                echo 'deploying..';
+                sh 'mvn deploy';
+            }
+        }
+        stage('Image') {
+            steps {
+                echo 'création image..';
+                sh 'docker build -t omarbouraoui/station-ski:1.0 .'
+
+            }
+        }
+        stage('Dockerhub') {
+            steps {
+                echo 'Push image to dockerhub backend + BD :';
+                sh 'docker login -u omarbouraoui -p SNOOPlili12 ' ;
+                sh 'docker push omarbouraoui/station-ski:1.0';
+            }
+        }
+        stage('Docker-Compose') {
+            steps {
+                echo 'gérer les conteneurs backend et BD..';
+                sh 'docker compose up -d';
+
+            }
+        }
+          stage('Monitoring: Grafana Prometheus') {
+            steps {
+                echo 'Monitoring..';
+                sh 'docker start prometheus';
+                 sh 'docker start grafana';
+            }
+        }
+        
+        stage('Test Email') {
+    steps {
+        mail(
+            to: 'bouraoui.omar@esprit.tn',
+            subject: "Jenkins Build #${env.BUILD_NUMBER} - ${currentBuild.currentResult}",
+            body: """
+                Jenkins Build #${env.BUILD_NUMBER} has completed with status: ${currentBuild.currentResult}.
+                View the build details here: ${env.BUILD_URL}
+            """
+        )
+    }
+}
+    }
+}
