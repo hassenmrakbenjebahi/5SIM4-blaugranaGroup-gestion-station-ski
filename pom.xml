@@ -54,6 +54,7 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+<<<<<<< HEAD
 <distributionManagement>
 		<repository>
 			<id>deploymentRepo</id>
@@ -61,6 +62,9 @@
 			<url>http://192.168.50.4:8081//repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
+=======
+
+>>>>>>> f219520990b1bdd59d54d3419e530727ce1ca382
 	<build>
 		<plugins>
 			<plugin>
